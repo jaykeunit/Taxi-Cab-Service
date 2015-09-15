@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+
+<head>
+<link rel= "stylesheet" href= "index.css" type= " text/css"/>
+
+</head>
+
+<body>
+	<header id="title"><h1>Taxi Cab Service<h1></header>
+		<nav id= "navigationLinks">
+			<ul>
+				<li><A href="http://www.cs.uh.edu/">Taxi Services</A></li>
+				<li><A href="http://www.cs.uh.edu/">About Us</A></li>
+				<li><A href="http://www.cs.uh.edu/">Contacts</A></li>
+			<ul>
+		</nav>
+	</header>
+	
+	<section id= "mainContent">
+		<p id ="orderTitle">Order a Taxi:</p>
+			<form id= "orderForm" onsubmit="return callSubmitCheck()" method= "post" action="http://httpbin.org/post">
+				<fieldset id="addCustomer">
+					<section id= "firstRow">
+						<label>First Name</label>
+						<input class="InfoInputField" type="input" name="firstName" placeholder="First name"" required tabindex=1></input>
+						<label>Destination Address</label>
+						<input class="InfoInputField" type= "input" name= "address" placeholder= "123 StreetName" required tabindex=5></input>
+						<br></br>
+						<label id = "latitudeLable">Lat:</label>
+						<input class="InfoInputField" id= "latitude" type="hidden" name="latitude" required readonly contenteditable = "false" ></input>
+					</section>
+					<section>
+						<label>Last Name</label>
+						<input class="InfoInputField" type="input" name="lastName" placeholder="Last name"" required tabindex=2></input>
+						<label>City</label>
+						<input class="InfoInputField" type= "input" name= "city" placeholder= "Houston" required tabindex=6></input>
+						<br></br>
+						<label id= "longitudeLable">Long:</label>
+						<input class="InfoInputField" id= "longitude" type="hidden" name="longitude" required="required" readonly content-editable = "false" ></input>
+					</section>
+					<section id= "secondRow">
+						<label>Phone Number</label>
+						<input class="InfoInputField" type="tel" name= "phoneNumber"placeholder= "123-456-7890" required tabindex=3></input>
+						<label>State</label>
+						<input class="InfoInputField" type= "input" name= "state" placeholder= "TX" required tabindex=7></input>
+						<button id= "getLocationButton" type="button" onclick ="requestLocation()" tabindex=9>Get My Current Location</button>
+					</section>
+					<section>
+						<label>Email Address</label>
+						<input class="InfoInputField" type="email" name="email" placeholder= "userid@gmail.com" required tabindex=4></input>
+						<label>Zip Code</label>
+						<input class="InfoInputField" type= "input" name= "zipcode" placeholder= "12345" required tabindex=8></input>	
+					</section>
+				</fieldset>
+				<section id= "dragAndDrop" ondrop="checkIfAlreadyInTable(event, document.getElementById('carTable'), document.getElementById('submitInfoError'))" ondragover = "allowDrop(event)" >
+					<p><i>Drop here</i></p>
+				</section>
+				<p id= "disclaimer">Availability determines your taxi</p>
+				<table id="carTable" >
+					<tr><th>Taxi Priority</th></tr>
+				</table>
+				<input id="formSubmitButton" value="Submit"  type="submit" tabindex=10></input>
+				<button id= "clearTableButton" type= "button" onclick= "carReset(document.getElementById('carTable'))">Reset</button>
+				<p id = "submitInfoError"></p>
+			</form>
+	</section>
+	<section id= "cars" draggable= "true" >
+		<i>Drag desired taxis from the images below</i>
+		<img class = "carImages" carData = "Tesla Taxi" ondragstart ="dragStart(event, this.getAttribute('carData'))" ondragend="dragEnd(event)" src="src/img/tesla.jpg" style="width:128px;height:83px;">
+		<img class = "carImages" carData = "Lamborghini Taxi" ondragstart ="dragStart(event, this.getAttribute('carData'))" ondragend="dragEnd(event)" src="src/img/LamboTaxi.jpg" style= "width:128px;height:83px;">
+		<img class = "carImages" carData = "Audi Taxi" ondragstart ="dragStart(event, this.getAttribute('carData'))" ondragend="dragEnd(event)" src="src/img/audiR8.jpg" style= "width:128px;height:83px;">
+		<img class = "carImages" carData = "Classic coupe Taxi" ondragstart ="dragStart(event, this.getAttribute('carData'))" ondragend="dragEnd(event)" src="src/img/classic.jpg" style= "width:128px;height:83px;">
+		<img class = "carImages" carData = "Porsche Taxi" ondragstart ="dragStart(event, this.getAttribute('carData'))" ondragend="dragEnd(event)" src="src/img/porsche.jpg" style= "width:128px;height:83px;">
+		<img class = "carImages" carData = "Van Taxi" ondragstart ="dragStart(event, this.getAttribute('carData'))" ondragend="dragEnd(event)" src="src/img/van.jpg" style= "width:128px;height:83px;">
+	</section>
+	<footer><p>&copy; Created by: Jake Martinez & Nestor Gonzalez 2015 All rights reserved.</p></footer>
+</body>
+<script src="src/indexFunctions.js"></script>
+<script>
+	var requestLocation = function(){
+		getGeoLocation(document.getElementById('latitude'), document.getElementById('longitude'), document.getElementById('getLocationButton'), document.getElementById('latitudeLable'), document.getElementById('longitudeLable'));
+	}
+	var callSubmitCheck = function(){
+		return submitCheck(document.getElementById('carTable'), document.getElementById('latitude'), document.getElementById('longitude'), document.getElementById('submitInfoError'));
+	}
+</script>
+</html>
